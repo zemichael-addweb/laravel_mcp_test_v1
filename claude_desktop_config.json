@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "laravel-mcp-test": {
+      "command": "/Users/zemichael/Addweb/MCP/laravel-mcp-test-v1/mcp-server.sh",
+      "args": [],
+      "cwd": "/Users/zemichael/Addweb/MCP/laravel-mcp-test-v1"
+    }
+  }
+}
