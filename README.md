@@ -15,6 +15,7 @@ A comprehensive **Model Context Protocol (MCP) server** built with **Laravel** t
 - **📋 Complete Request History**: Full audit trail of searches and content access with exportable results
 
 ### 🛠️ **Additional Tools**
+- **📊 Keyword Chart Data Tool**: Generate chart-ready data for keyword analysis across library content with customizable counting methods and visualization support
 - **Calculator Tool**: Basic mathematical operations (add, subtract, multiply, divide)
 - **Text Processor Tool**: Text manipulation operations (uppercase, lowercase, reverse, word count, etc.)
 - **Weather Tool**: Simulated weather information for any location
@@ -192,6 +193,208 @@ The tool understands natural language queries:
 - `file_number` - File numbering system
 - `lecture_code` - Lecture coding system
 
+## 📊 Keyword Chart Data Analysis
+
+### 🚀 **Overview**
+The **Keyword Chart Data Tool** enables powerful visualization of keyword analysis across your CoolBeans Library content. Generate chart-ready data to compare keyword occurrences, analyze content patterns, and create compelling visualizations using natural language prompts.
+
+### 🎯 **Key Features**
+- **📝 Natural Language Parsing**: Extract search filters and keywords from conversational prompts
+- **📊 Dual Counting Methods**: Choose between presence (files containing keyword) vs frequency (total occurrences)
+- **🔍 Flexible Matching**: Whole word, partial match, or exact phrase matching options
+- **🎨 Chart-Ready Output**: JSON data formatted for popular charting libraries (Chart.js, etc.)
+- **🎛️ Customizable Search Scope**: Content only, titles only, or all fields
+- **🌈 Visual Styling**: Pre-configured colors and chart type suggestions
+- **📈 Rich Metadata**: Statistics, summaries, and analysis insights
+
+### 💬 **Usage Examples**
+
+#### **Basic Chart Analysis:**
+```
+"Please search coolbeans and plot a chart of books mentioning 'evil', 'pray', 'money' and 'god'"
+```
+
+This prompt will:
+1. Filter files containing "coolbeans"
+2. Count files mentioning each of the 4 keywords
+3. Return chart-ready JSON data for visualization
+
+#### **Advanced Keyword Analysis:**
+```
+"Analyze files for keywords `meditation`, `prayer`, `spirituality` and show frequency counts in a pie chart"
+```
+
+#### **Content-Specific Analysis:**
+```
+"Plot a bar chart of lecture content mentioning 'technology', 'future', 'innovation' - search content only"
+```
+
+### 🔧 **Parameters & Options**
+
+#### **Count Method:**
+- **`presence`** (default): Count files that contain each keyword
+- **`frequency`**: Count total occurrences of each keyword across all files
+
+#### **Match Type:**
+- **`whole_word`** (default): Match complete words only
+- **`partial`**: Match substrings anywhere in text  
+- **`exact_phrase`**: Match exact phrase as written
+
+#### **Search Scope:**
+- **`content_only`** (default): Search only document content
+- **`titles_only`**: Search only titles and names
+- **`all_fields`**: Search across all database fields
+
+#### **Chart Types:**
+- **`bar`** (default): Bar chart for comparisons
+- **`line`**: Line chart for trends
+- **`pie`**: Pie chart for proportions
+- **`doughnut`**: Doughnut chart variation
+
+### 📊 **Response Format**
+
+The tool returns comprehensive JSON data including:
+
+```json
+{
+  "chart_config": {
+    "type": "bar",
+    "data": {
+      "labels": ["evil", "pray", "money", "god"],
+      "datasets": [{
+        "label": "File Count",
+        "data": [15, 23, 8, 45],
+        "backgroundColor": ["rgba(255, 99, 132, 0.8)", "..."],
+        "borderColor": ["rgba(255, 99, 132, 1)", "..."]
+      }]
+    },
+    "options": {
+      "responsive": true,
+      "plugins": {
+        "title": {
+          "display": true,
+          "text": "Keyword Analysis in files matching 'coolbeans' (1250 files searched)"
+        }
+      }
+    }
+  },
+  "raw_data": {
+    "keywords": ["evil", "pray", "money", "god"],
+    "counts": [15, 23, 8, 45],
+    "keyword_results": {
+      "evil": 15,
+      "pray": 23, 
+      "money": 8,
+      "god": 45
+    }
+  },
+  "metadata": {
+    "total_files_searched": 1250,
+    "search_filter": "coolbeans",
+    "keywords_analyzed": 4,
+    "chart_type": "bar",
+    "max_count": 45,
+    "min_count": 8,
+    "average_count": 22.75
+  },
+  "summary": "📊 Keyword Analysis Results\n\n🔍 Search Filter: coolbeans\n📁 Total Files Searched: 1,250\n🔤 Keywords Analyzed: 4\n\nResults by Keyword:\n• god: 45 files (3.6%)\n• pray: 23 files (1.8%)\n• evil: 15 files (1.2%)\n• money: 8 files (0.6%)"
+}
+```
+
+### 🎨 **Prompt Parsing Intelligence**
+
+The tool automatically extracts information from natural language:
+
+#### **Keyword Detection:**
+- **Quoted keywords**: `"evil"`, `"pray"`, `"money"`
+- **Backtick keywords**: `\`god\``, `\`meditation\``
+- **Mentioning patterns**: `"mentioning evil, pray, money and god"`
+
+#### **Search Filter Extraction:**
+- **"search X and plot..."** → Uses "X" as initial filter
+- **"find Y then analyze..."** → Uses "Y" to filter results first
+- **"Please search coolbeans..."** → Filters files containing "coolbeans"
+
+### 🔄 **Typical Workflow**
+
+1. **Provide Natural Language Prompt**: 
+   ```
+   "Please search coolbeans and plot a chart of books mentioning 'evil', 'pray', 'money' and 'god'"
+   ```
+
+2. **Receive Chart-Ready Data**: 
+   - Complete Chart.js configuration
+   - Raw data arrays for custom visualizations
+   - Metadata and statistics
+
+3. **Create Visualization**: 
+   - Use the JSON directly in Chart.js
+   - Extract raw data for other charting libraries
+   - Customize colors and styling as needed
+
+### 📈 **Advanced Examples**
+
+#### **Frequency Analysis:**
+```json
+{
+  "prompt": "Count total occurrences of 'meditation', 'prayer', 'spiritual' in coolbeans content",
+  "count_method": "frequency",
+  "match_type": "whole_word",
+  "search_scope": "content_only"
+}
+```
+
+#### **Case-Sensitive Partial Matching:**
+```json
+{
+  "prompt": "Chart showing partial matches for 'Tech', 'Science', 'Future' in lecture titles", 
+  "match_type": "partial",
+  "search_scope": "titles_only",
+  "case_sensitive": true
+}
+```
+
+#### **Cross-Field Analysis:**
+```json
+{
+  "prompt": "Analyze all fields for exact phrases 'personal growth', 'self improvement', 'life skills'",
+  "match_type": "exact_phrase", 
+  "search_scope": "all_fields",
+  "chart_type": "doughnut"
+}
+```
+
+### ⚡ **Performance & Scalability**
+
+- **Optimized Queries**: Efficient database queries with proper indexing
+- **Smart Processing**: Handles large datasets with memory-efficient algorithms  
+- **Request Tracking**: Monitor analysis performance and usage patterns
+- **Error Handling**: Robust error handling with detailed feedback
+
+### 🎯 **Integration Tips**
+
+#### **For Web Applications:**
+```javascript
+// Use the chart_config directly with Chart.js
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, response.chart_config);
+```
+
+#### **For Custom Analysis:**
+```javascript
+// Extract raw data for custom processing
+const keywords = response.raw_data.keywords;
+const counts = response.raw_data.counts;
+const results = response.raw_data.keyword_results;
+```
+
+#### **For Reports:**
+```javascript
+// Use the formatted summary
+const summary = response.summary;
+const metadata = response.metadata;
+```
+
 ## 💬 Usage Examples
 
 ### 🔍 **Search Examples**
@@ -224,6 +427,29 @@ The tool understands natural language queries:
 "Find books from coolbeans about prayer, show detailed results"
 "List audio files from any source about personal growth"  
 "Get comprehensive search for documents excluding content about philosophy"
+```
+
+### 📊 **Chart Analysis Examples**
+
+**Basic Keyword Charts:**
+```
+"Please search coolbeans and plot a chart of books mentioning 'evil', 'pray', 'money' and 'god'"
+"Analyze files for keywords `meditation`, `prayer`, `spirituality` with frequency counts"
+"Chart showing content mentions of 'technology', 'future', 'innovation' in bar format"
+```
+
+**Advanced Chart Analysis:**
+```
+"Plot pie chart of exact phrases 'personal growth', 'self improvement', 'life coaching' in titles only"
+"Count partial matches for 'spirit', 'soul', 'mind' across all fields - case sensitive"
+"Generate doughnut chart of 'science', 'research', 'study' frequency in lecture content"
+```
+
+**Filtered Chart Analysis:**
+```
+"Search coolbeans source and plot 'prayer', 'meditation', 'worship' presence in books only"
+"Analyze audio files for 'technique', 'method', 'process' and show line chart"
+"Chart lecture content for whole word matches of 'truth', 'wisdom', 'knowledge'"
 ```
 
 ### 🖥️ **Web Interface Usage:**
@@ -316,7 +542,8 @@ app/
 │   ├── Servers/
 │   │   └── TestMCPServer.php       # MCP server configuration
 │   └── Tools/
-│       └── CoolbeansLibrarySearchTool.php      # CoolBeans Library Search tool
+│       ├── CoolbeansLibrarySearchTool.php      # CoolBeans Library Search tool
+│       └── KeywordChartDataTool.php            # Keyword Chart Analysis tool
 ├── Models/
 │   ├── File.php                    # Files table model
 │   └── McpRequest.php              # Request tracking model

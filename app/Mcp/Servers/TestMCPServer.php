@@ -4,6 +4,7 @@ namespace App\Mcp\Servers;
 
 use App\Mcp\Tools\CalculatorTool;
 use App\Mcp\Tools\CoolbeansLibrarySearchTool;
+use App\Mcp\Tools\KeywordChartDataTool;
 use App\Mcp\Tools\TextProcessorTool;
 use App\Mcp\Tools\WeatherTool;
 use App\Mcp\Tools\SystemInformationTool;
@@ -31,7 +32,7 @@ class TestMCPServer extends Server
     /**
      * The MCP server's instructions for the LLM.
      */
-    protected string $instructions = 'This is the CoolBeans Library search and analysis server with full Laravel MCP capabilities. It specializes in searching through a comprehensive database of files, books, lectures, and documents to provide summaries, lists, and detailed information. It also includes mathematical calculations, text processing, weather information, code generation, documentation, system information, and premium features for authenticated users.';
+    protected string $instructions = 'This is the CoolBeans Library search and analysis server with full Laravel MCP capabilities. It specializes in searching through a comprehensive database of files, books, lectures, and documents to provide summaries, lists, and detailed information. Features include keyword chart analysis for data visualization, mathematical calculations, text processing, weather information, code generation, documentation, system information, and premium features for authenticated users.';
 
     /**
      * The tools registered with this MCP server.
@@ -41,6 +42,7 @@ class TestMCPServer extends Server
     protected array $tools = [
         CalculatorTool::class,
         CoolbeansLibrarySearchTool::class,
+        KeywordChartDataTool::class,
         TextProcessorTool::class,
         WeatherTool::class,
         SystemInformationTool::class,
